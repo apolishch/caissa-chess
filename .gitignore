@@ -19,3 +19,6 @@ app/models/.byebug_history
 # Ignore coverage files.
 coverage/*
 .DS_Store
+
+#Emacs artifacts
+*~
