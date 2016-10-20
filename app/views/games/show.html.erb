@@ -1,10 +1,36 @@
+//somehow tag that insert javascript
+  function wrapper = () {
+   var game = "#{@game}";
+   var piece_id = undefined;
+   function select_piece (p_id) {
+     piece_id = p_id;
+   }
+
+  function move_piece = (x, y) {
+    $.ajax({
+      method: 'POST',
+      url: 'pieces/' + piece_id + '/move',
+      data: {x: x, y: y}
+    }, function (result) {
+      if (result.invalid) {
+        piece_id = undefined;
+        alert('sorry taht move is not valid');
+      } else {
+        game = result.game;
+      }
+    }, function (error) {
+      //TODO: handle error in a useful way;
+    })
+  }
+}
+
 <h1>Game Show page</h1>
 
 <p>Game name: <%= @game.name %></p> 
 
 <% array = ["A","B","C","D","E","F","G","H"] %> 
 <% unicodefig = ["&#9820;","&#9822;", "&#9821;", "&#9819;", "&#9818;", "&#9821;", "&#9822;", "&#9820;"] %>
-<table id = "ChessBoard"> 
+<table id = "ChessBoard" onLoad=wrapper()> 
 <% 8.times.each do |number| %> 
 	<% if number% 2 ==0 %>  
 		<tr> 

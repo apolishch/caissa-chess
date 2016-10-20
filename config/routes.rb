@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root 'games#index'
   get '/games/:game' => 'games#show'
+
+  post '/pieces/:piece_id/move' => 'moves#make_move'
+
   devise_scope :user do
     get '/users/auth/failure' => 'users/omniauth_callbacks#failure'
   end
